@@ -1,31 +1,61 @@
 const characterService = require('./characters.service');
 
-const createCharacter = async (req, res) => {
-    const {name, imageUrl} = req.body;
+const findAllCharacters = async (req, res) => {
+    const allCharacters = await charactersService.findAllCharacters();
 
-    if(!name || !imageUrl) {
-        return res.status(400).send({message: 'Os campos name e imageUrl são de preenchimento obrigatório!'});
+    if(allCharacters.length == 0){
+        return res.status(206).send({ message: 'Não existe nenhum personagem cadastrado'});
     }
-
-    const character = await characterService.createCharacter(req.body).catch((error) =>console.log(error));
-
-    if(!character){
-        return res.status(500).send({message: 'Erro ao cadastrar persangem. Tente novamento mais tarde'});
-    }
-    res.status(201).send(character);
+    res.send(allCharacters);
 };
 
-const findAllCharacters = async(req, res) =>{
-    const characters = await characterService.findAllCharacters();
+const findByIdCharacter = async (req, res) => {
+    const id = req.params.id;
+    const character = await charactersService.findByIdCharacter(id);
 
-    if(characters.length == 0) {
-        return res.status(206).send({massage: 'Não existem personagens cadastrados!'})
+    if(!character) {
+        return res.status(206).send({message: 'Personagem não encontrado com esse id!'});
+    }
+    res.send(character);
+};
+
+const createCharacter = async (req, res) =>{
+    const character = req.body;
+    const newCharacter = await charactersService.createCharacter(character);
+
+    res.status(201).send(newCharacter);
+};
+
+const updateCharacter = async (req, res) =>{
+    const id = req.params.id;
+    const editCharacter = req.body;
+
+    const character = await charactersService.findByIdCharacter(id);
+
+    if(!character) {
+        return res.status(206).send({message: 'Personagem não encontrado com esse id!'});
+    }
+
+    const updateCharacter = await charactersService.updateCharacter(id, editCharacter);
+    res.send(updatePharacter);
+};
+
+const deleteCharacter = async (req, res) => {
+    const id = req.params.id;
+    const character = await charactersService.findByIdCharacter(id);
+
+    if (!character) {
+        return res.status(206).send({message: 'Personagem não encontrado com esse id!'});
+    }
+    await charactersService.deleteCharacter(id);
+
+    res.send({message: 'Personagem deletado!'});
     };
 
-    res.send(characters)
-};
-
-module.exports = {
-    createCharacter,
-    findAllCharacters
-};
+    module.exports = {
+        findAllCharacters,
+        findByIdCharacter,
+        createCharacter,
+        updateCharacter,
+        deleteCharacter,
+    };
