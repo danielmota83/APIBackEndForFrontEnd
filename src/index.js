@@ -1,4 +1,11 @@
-const express =require('express');
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const connectToDatabase = require("./database/database");
+const characterRoute = require('./characters/characters.route');
+const userRoute = require("./users/users.route");
+const swaggerRoute = require("./swagger/swagger.route");
+const authRoute = require("./auth/auth.route");
 
 const port = process.env.PORT || 3000;
 

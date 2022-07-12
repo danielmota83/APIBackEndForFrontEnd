@@ -5,7 +5,7 @@ const charactersController = require('./characters.controller');
 const {
     validId,
     validObjectBody,
-  } = require('../middlewares/characters.middleware');
+  } = require('./characters.middleware');
   
   router.get('/', charactersController.findAllCharacters);
   router.get('/:id', validId, charactersController.findByIdCharacter);

@@ -1,4 +1,4 @@
-const characterService = require('./characters.service');
+const charactersService = require('./characters.service');
 
 const findAllCharacters = async (req, res) => {
     const allCharacters = await charactersService.findAllCharacters();
