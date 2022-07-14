@@ -9,8 +9,8 @@ const findAllCharacters = async () => {
     return await Character.findById(idParam);
   };
 
-  const findByNameCharacter = async (query) =>
-  await Character.find({ name: { $regex: `${query || ''}`, $options: 'i' } });
+  const findByNameCharacter = async (name) =>
+  await Character.find({ name: { $regex: `${name || ''}`, $options: 'i' } });
   
   const createCharacter = async (newCharacter) =>
     await Character.create(newCharacter);

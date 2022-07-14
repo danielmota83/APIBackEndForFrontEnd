@@ -21,10 +21,30 @@ const findByIdCharacter = async (req, res) => {
 
 const createCharacter = async (req, res) =>{
     const character = req.body;
-    const newCharacter = await charactersService.createCharacter(character);
 
+    if (!character) {
+        res.status(400).send({
+          message: "Você não digitou as informações do novo personagem!",
+        });
+      }
+
+    const newCharacter = await charactersService.createCharacter(character);
     res.status(201).send(newCharacter);
 };
+
+const findByNameCharacter = async (req, res) => {
+    const { name } = req.query;
+  
+    const characters = await charactersService.searchCharacter(name);
+  
+    if (characters.length === 0) {
+      return res
+        .status(400)
+        .send({ message: "Não existe personagens cadastrados com esse nome!" });
+    }
+  
+    res.send(characters);
+  };
 
 const updateCharacter = async (req, res) =>{
     const id = req.params.id;
@@ -37,7 +57,7 @@ const updateCharacter = async (req, res) =>{
     }
 
     const updateCharacter = await charactersService.updateCharacter(id, editCharacter);
-    res.send(updatePharacter);
+    res.send(updateCharacter);
 };
 
 const deleteCharacter = async (req, res) => {
@@ -56,6 +76,7 @@ const deleteCharacter = async (req, res) => {
         findAllCharacters,
         findByIdCharacter,
         createCharacter,
+        findByNameCharacter,
         updateCharacter,
         deleteCharacter,
     };
