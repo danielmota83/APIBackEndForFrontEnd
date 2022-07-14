@@ -8,14 +8,15 @@ const {
   } = require('./characters.middleware');
   
   router.get('/', charactersController.findAllCharacters);
-  router.get('/:id', validId, charactersController.findByIdCharacter);
-  router.post('/', validObjectBody, charactersController.createCharacter);
+  router.get('/find/:id', validId, charactersController.findByIdCharacter);
+  router.post('/create', validObjectBody, charactersController.createCharacter);
   router.put(
-    '/:id',
+    '/update/:id',
     validId,
     validObjectBody,
     charactersController.updateCharacter,
   );
-  router.delete('/:id', validId, charactersController.deleteCharacter);
+  router.get('/search', validObjectBody, characterController.findByNameCharacter);
+  router.delete('/delete/:id', validId, charactersController.deleteCharacter);
   
   module.exports = router;

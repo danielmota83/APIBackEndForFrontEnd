@@ -8,6 +8,9 @@ const findAllCharacters = async () => {
   const findByIdCharacter = async (idParam) => {
     return await Character.findById(idParam);
   };
+
+  const findByNameCharacter = async (query) =>
+  await Character.find({ name: { $regex: `${query || ''}`, $options: 'i' } });
   
   const createCharacter = async (newCharacter) =>
     await Character.create(newCharacter);
@@ -27,4 +30,5 @@ const findAllCharacters = async () => {
     createCharacter,
     updateCharacter,
     deleteCharacter,
+    findByNameCharacter,
   };
