@@ -1,22 +1,22 @@
 const router = require('express').Router();
 const charactersController = require('./characters.controller');
-
+const authMiddleware = require('../auth/auth.middleware');
 
 const {
     validId,
     validObjectBody,
   } = require('./characters.middleware');
   
-  router.get('/', charactersController.findAllCharacters);
-  router.get('/find/:id', validId, charactersController.findByIdCharacter);
-  router.post('/create', validObjectBody, charactersController.createCharacter);
+  router.get('/', authMiddleware, charactersController.findAllCharacters);
+  router.get('/find/:id', authMiddleware, validId, charactersController.findByIdCharacter);
+  router.post('/create', authMiddleware, validObjectBody, charactersController.createCharacter);
   router.put(
-    '/update/:id',
+    '/update/:id', authMiddleware,
     validId,
     validObjectBody,
     charactersController.updateCharacter,
   );
-  router.get('/search', validObjectBody, characterController.findByNameCharacter);
-  router.delete('/delete/:id', validId, charactersController.deleteCharacter);
+  router.get('/search', authMiddleware, charactersController.findByNameCharacter);
+  router.delete('/delete/:id', authMiddleware, validId, charactersController.deleteCharacter);
   
   module.exports = router;
