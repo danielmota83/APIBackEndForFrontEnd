@@ -7,7 +7,7 @@ const userRoute = require("./users/users.route");
 const swaggerRoute = require("./swagger/swagger.route");
 const authRoute = require("./auth/auth.route");
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 
 const app = express();
 

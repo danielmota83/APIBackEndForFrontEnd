@@ -1,7 +1,7 @@
 const Character = require('./character');
 
 const findAllCharacters = async () => {
-    const allCharacters = await Character.find();
+    const allCharacters = await Character.find().populate('user');
     return allCharacters;
   };
   

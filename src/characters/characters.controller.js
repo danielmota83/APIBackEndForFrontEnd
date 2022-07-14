@@ -1,12 +1,19 @@
 const charactersService = require('./characters.service');
 
 const findAllCharacters = async (req, res) => {
+   try{
     const allCharacters = await charactersService.findAllCharacters();
-
-    if(allCharacters.length == 0){
-        return res.status(206).send({ message: 'Não existe nenhum personagem cadastrado'});
-    }
-    res.send(allCharacters);
+   return res.send({
+        results: allCharacters.map((character)=> ({
+            id:character._id,
+            user:character.user.id,
+            name:character.name,
+            imageUrl:character.imageUrl,
+        }))
+    });
+} catch (err) {
+    res.status(500).send({message: err.message})
+}
 };
 
 const findByIdCharacter = async (req, res) => {
@@ -28,7 +35,7 @@ const createCharacter = async (req, res) =>{
         });
       }
 
-    const newCharacter = await charactersService.createCharacter(character);
+    const newCharacter = await charactersService.createCharacter(body);
     res.status(201).send(newCharacter);
 };
 
