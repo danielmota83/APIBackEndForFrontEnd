@@ -27,19 +27,21 @@ const findByIdCharacter = async (req, res) => {
 };
 
 const createCharacter = async (req, res) =>{
-    const character = req.body;
-
-    if (!character) {
-        res.status(400).send({
-          message: "Você não digitou as informações do novo personagem!",
+      try {
+        const { name, imageUrl } = req.body;
+    
+        const { id } = await createCharacter(name, imageUrl, req.userId);
+    
+        res.status(201).send({
+          message: 'created',
+          character: { id, name, imageUrl },
         });
+      } catch (err) {
+        res.status(500).send({ message: err.message });
       }
+    };
 
-    const newCharacter = await charactersService.createCharacter(body);
-    res.status(201).send(newCharacter);
-};
-
-const findByNameCharacter = async (req, res) => {
+    const findByNameCharacter = async (req, res) => {
     const { name } = req.query;
   
     const characters = await charactersService.searchCharacter(name);
