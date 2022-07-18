@@ -1,4 +1,4 @@
-const User = require("./User");
+const User = require("../users/User");
 
 const createUser = async (body) => await User.create(body);
 
