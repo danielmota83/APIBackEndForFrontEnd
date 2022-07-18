@@ -4,8 +4,8 @@
   "description": "Projeto final módulo Backend BlueEdTech",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index",
-    "dev": "nodemon src/index"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
  
   },
   "keywords": [],
