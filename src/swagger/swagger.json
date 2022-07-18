@@ -7,7 +7,11 @@
     },
     "servers": [
       {
-        "url": "http://localhost:3000",
+        "url": "https://apirickandmortyback.herokuapp.com//",
+        "description": "Deploy no Heroku"
+      },
+      {
+        "url": "http://localhost:3001",
         "description": "Url de teste"
       }
     

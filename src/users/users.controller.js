@@ -3,7 +3,7 @@ const userService = require("./users.service");
 const createUser = async (req, res) => {
   const { name, username, email, password, profileImage } = req.body;
 
-  if (!name || !username || !email || !password) {
+  if (!name || !username || !email || !password ) {
     return res.status(400).send({
       message:
         "Alguns campos estão faltando. Os campos obrigatórios são: 'name', 'username', 'email' e 'password' ",
